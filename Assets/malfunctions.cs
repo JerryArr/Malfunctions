@@ -731,6 +731,27 @@ public class malfunctions : MonoBehaviour
         }
      }
 
+    // Implemented by Quinn Wuest.
+    private IEnumerator TwitchHandleForcedSolve()
+    {
+        string solution = moduleSolution.ToString();
+        if (!solution.StartsWith(currentInput))
+        {
+            buttonClear.OnInteract();
+            yield return new WaitForSeconds(0.1f);
+        }
+        int start = 0;
+        for (int i = 0; i < currentInput.Length; i++)
+            if (currentInput[i] == solution[i])
+                start++;
+        for (int i = start; i < solution.Length; i++)
+        {
+            buttons[solution[i] - '0'].OnInteract();
+            yield return new WaitForSeconds(0.1f);
+        }
+        buttonSubmit.OnInteract();
+    }
+
     void delegationZone()
     {
 
